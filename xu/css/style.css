@@ -23,6 +23,7 @@ input {
 img {
 	vertical-align:top;
 	border:0;
+	padding:4px;
 }
 em,i {
 	font-style:normal;
@@ -235,7 +236,7 @@ hr {
 	margin-left: 100px;
 	line-height: 24px;
 }
-.more>img{
+.more img{
 	width:15em;
 	
 }
