@@ -29,8 +29,7 @@
 
 
 
-
-
+<!--
         <div class="year">
           <h2><a href="#">2019年<i></i></a></h2>
           <div class="list">
@@ -196,6 +195,11 @@
           </div>
 
         </div>
+
+
+-->
+
+
       </div>
     </div>
     <div class="footer">
@@ -207,17 +211,44 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script>
       var imgPath = "./images/fengxu_min/";
-      var main = "<ul>"
+      var main = ""
 
       $.getJSON("images.json", function (result) {
 
+        result.map(data => {
+          main += `
 
-        result.Array.forEach(img => {
-          main += `<li>${img}</li>`
-        });
+          <div class="year">
+          <h2><a href="#">${data.year}}年<i></i></a></h2>
+          <div class="list">
+            <ul>
+
+              ${data.days.map(day=>`
+                <li class="cls highlight">
+                <p class="date">${day.day}</p>
+                <p class="intro">${day.title}</p>
+                <p class="version">&nbsp;</p>
+                <div class="more">
+                  ${day.images.map(img=>`
+                    <a href="${imgPath+img}"><img class="scrollLoading"
+                      data-url="./images/loading.gif" src="${imgPath+img}" alt=""></a>
+                    `).join()}
+                </div>
+              </li>
+                `).join()}
+              
+              
+            </ul>
+          </div>
+
+        </div>
+            `
+        }).join("");
+
+
       })
 
-      main += "</ul>"
+   
 
       $(".years").innerHTML = main
 
