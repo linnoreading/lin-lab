@@ -5,7 +5,8 @@
 <!--<![endif]-->
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>冯旭-相册-时间轴</title>
   <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -19,6 +20,15 @@
       <hr class="line-right">
       <div class="main">
         <h1 class="title"></h1>
+        <a href="https://linnoreading.github.io/lin-lab/xu">Url</a>
+
+
+        <div class="years">
+
+        </div>
+
+
+
 
 
         <div class="year">
@@ -32,9 +42,12 @@
                 <p class="intro"></p>
                 <p class="version">&nbsp;</p>
                 <div class="more">
-                  <a href="./images/fengxu_min/20190514 (1).jpg"><img class="scrollLoading" data-url="./images/loading.gif" src="./images/fengxu_min/20190514 (1).jpg" alt=""></a>
-                  <a href="./images/fengxu_min/20190514 (2).jpg"><img class="scrollLoading" data-url="./images/loading.gif" src="./images/fengxu_min/20190514 (2).jpg" alt=""></a>
-                  <a href="./images/fengxu_min/20190514 (3).jpg"></a><img class="scrollLoading" data-url="./images/loading.gif" src="./images/fengxu_min/20190514 (3).jpg" alt="">
+                  <a href="./images/fengxu_min/20190514 (1).jpg"><img class="scrollLoading"
+                      data-url="./images/loading.gif" src="./images/fengxu_min/20190514 (1).jpg" alt=""></a>
+                  <a href="./images/fengxu_min/20190514 (2).jpg"><img class="scrollLoading"
+                      data-url="./images/loading.gif" src="./images/fengxu_min/20190514 (2).jpg" alt=""></a>
+                  <a href="./images/fengxu_min/20190514 (3).jpg"></a><img class="scrollLoading"
+                    data-url="./images/loading.gif" src="./images/fengxu_min/20190514 (3).jpg" alt="">
                 </div>
               </li>
             </ul>
@@ -153,9 +166,12 @@
                 <p class="intro">我穿着厚厚的棉衣，打地铺呢</p>
                 <p class="version">&nbsp;</p>
                 <div class="more">
-                  <img class="scrollLoading" data-url="image/logo.jpg" src="./images/fengxu_min/20150121 (1).jpg" alt="">
-                  <img class="scrollLoading" data-url="image/logo.jpg" src="./images/fengxu_min/20150121 (2).jpg" alt="">
-                  <img class="scrollLoading" data-url="image/logo.jpg" src="./images/fengxu_min/20150121 (3).jpg" alt="">
+                  <img class="scrollLoading" data-url="image/logo.jpg" src="./images/fengxu_min/20150121 (1).jpg"
+                    alt="">
+                  <img class="scrollLoading" data-url="image/logo.jpg" src="./images/fengxu_min/20150121 (2).jpg"
+                    alt="">
+                  <img class="scrollLoading" data-url="image/logo.jpg" src="./images/fengxu_min/20150121 (3).jpg"
+                    alt="">
                 </div>
               </li>
             </ul>
@@ -187,16 +203,26 @@
         <div class="copyright"> Copyright © 2011-2014 All Rights Reserved </div>
       </div>
     </div>
+
     <script type="text/javascript" src="js/jquery.min.js"></script>
-   
-   
-   <script>
-var imgPath="./images/fengxu_min/";
+    <script>
+      var imgPath = "./images/fengxu_min/";
+      var main = "<ul>"
+
+      $.getJSON("images.json", function (result) {
 
 
-$.getJSON("images.json",function(result){
-  console.log(result)
-})
+        result.Array.forEach(img => {
+          main += `<li>${img}</li>`
+        });
+      })
+
+      main += "</ul>"
+
+      $(".years").innerHTML = main
+
+
+
 
       $(".main .year .list").each(function (e, target) {
         var $target = $(target),
@@ -209,7 +235,7 @@ $.getJSON("images.json",function(result){
       });
 
 
-//先加载缩略图，加载完成后替换成实际大小的图片
+      //先加载缩略图，加载完成后替换成实际大小的图片
       $(document).ready(function () {
         //一段正则，匹配所有_min的图片src属性
         //var test = /_min\./
@@ -226,67 +252,67 @@ $.getJSON("images.json",function(result){
 
       /*
 
-      (function($) { 
-       // alert($.fn.scrollLoading); 
-       $.fn.scrollLoading = function(options) { 
-         var defaults = { 
+      (function($) {
+       // alert($.fn.scrollLoading);
+       $.fn.scrollLoading = function(options) {
+         var defaults = {
            attr: "data-url"
-         }; 
-         var params = $.extend({}, defaults, options || {}); 
-         params.cache = []; 
-         $(this).each(function() { 
-           var node = this.nodeName.toLowerCase(), 
-             url = $(this).attr(params["attr"]); 
-           if(!url) { 
-             return; 
-           } 
-           var data = { 
-             obj: $(this), 
-             tag: node, 
-             url: url 
-           }; 
-           params.cache.push(data); 
-         }); 
- 
-         var loading = function() { 
-           var st = $(window).scrollTop(), 
-             sth = st + $(window).height(); 
-           $.each(params.cache, function(i, data) { 
-             var o = data.obj, 
-               tag = data.tag, 
-               url = data.url; 
-             if(o) { 
-               post = o.position().top; 
-               posb = post + o.height(); 
-               if((post > st && post < sth) || (posb > st && posb < sth)) { 
-                 if(tag === "img") { 
-                   o.attr("src", url); 
-                 } else { 
-                   o.load(url); 
-                 } 
-                 data.obj = null; 
-               } 
-             } 
-           }); 
-           return false; 
-         }; 
- 
-         loading(); 
-         $(window).bind("scroll", loading); 
-       }; 
+         };
+         var params = $.extend({}, defaults, options || {});
+         params.cache = [];
+         $(this).each(function() {
+           var node = this.nodeName.toLowerCase(),
+             url = $(this).attr(params["attr"]);
+           if(!url) {
+             return;
+           }
+           var data = {
+             obj: $(this),
+             tag: node,
+             url: url
+           };
+           params.cache.push(data);
+         });
+
+         var loading = function() {
+           var st = $(window).scrollTop(),
+             sth = st + $(window).height();
+           $.each(params.cache, function(i, data) {
+             var o = data.obj,
+               tag = data.tag,
+               url = data.url;
+             if(o) {
+               post = o.position().top;
+               posb = post + o.height();
+               if((post > st && post < sth) || (posb > st && posb < sth)) {
+                 if(tag === "img") {
+                   o.attr("src", url);
+                 } else {
+                   o.load(url);
+                 }
+                 data.obj = null;
+               }
+             }
+           });
+           return false;
+         };
+
+         loading();
+         $(window).bind("scroll", loading);
+       };
      })(jQuery);
 
 
-     $(document).ready(function () { 
-   //实现图片慢慢浮现出来的效果 
-   $("img").load(function () { 
-     //图片默认隐藏  
-     $(this).hide(); 
-     //使用fadeIn特效  
-     $(this).fadeIn("5000"); 
-   }); 
-   // 异步加载图片，实现逐屏加载图片 
-   $(".scrollLoading").scrollLoading();  
+     $(document).ready(function () {
+   //实现图片慢慢浮现出来的效果
+   $("img").load(function () {
+     //图片默认隐藏
+     $(this).hide();
+     //使用fadeIn特效
+     $(this).fadeIn("5000");
+   });
+   // 异步加载图片，实现逐屏加载图片
+   $(".scrollLoading").scrollLoading();
  });
 
  */
