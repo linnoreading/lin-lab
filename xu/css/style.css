@@ -238,6 +238,7 @@ hr {
 }
 .more img{
 	width:15em;
+	/*transform: rotate(10deg);*/
 	
 }
 .content .main .year .list ul li .intro {
