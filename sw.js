@@ -3,7 +3,8 @@ self.addEventListener('install', function (event) {
     caches.open('v1').then(function (cache) {
       return cache.addAll([
         '/lin-lab/',
-        '/lin-lab/Lib/scripts/Core/jquery-3.1.0.min.js'
+        '/lin-lab/Lib/scripts/Core/jquery-3.1.0.min.js',
+        '/lin-lab/xu2/'
       ]);
     })
   );
