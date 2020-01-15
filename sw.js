@@ -26,7 +26,7 @@ self.addEventListener('install', function(event) {
           });
           return response;
         }).catch(function () {
-          return caches.match('/lin-lab/gallery/myLittleVader.jpg');
+          return caches.match('/lin-lab/xu/images/loading.gif');
         });
       }
     }));
