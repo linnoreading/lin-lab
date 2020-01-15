@@ -1,5 +1,5 @@
 //regiter service worker
-
+alert("Test");
 if('serviceWorker' in navigator){
     navigator.serviceWorker.register('/lin-lab/sw.js',{scope:'/lin-lab/'}).then(function(reg){
         if(reg.installing){
